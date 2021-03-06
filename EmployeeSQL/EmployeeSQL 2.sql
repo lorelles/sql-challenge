@@ -3,55 +3,48 @@
 -- Create tables
 CREATE TABLE IF NOT EXISTS departments
 (
-    id INTEGER NOT NULL,
     dept_no VARCHAR(30) NOT NULL,
     dept_name VARCHAR(30) NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(dept_no)
 );
 
 CREATE TABLE IF NOT EXISTS dept_emp
 (
-    id INTEGER NOT NULL,
     emp_no INTEGER NOT NULL,
-    dept_no INTEGER NOT NULL,
-    PRIMARY KEY(id)
+    dept_no VARCHAR(30) NOT NULL    
 );
 
 CREATE TABLE IF NOT EXISTS dept_manager
 (
-    id INTEGER NOT NULL,
     dept_no VARCHAR(30) NOT NULL,
     emp_no INTEGER NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(dept_no)
 );
 
 CREATE TABLE IF NOT EXISTS employees
 (
-    id INTEGER NOT NULL,
     emp_no INTEGER NOT NULL,
     emp_title_id VARCHAR(30) NOT NULL,
     birth_date VARCHAR(30) NOT NULL,
-    first_name INTEGER,
-    last_name INTEGER NOT NULL,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30) NOT NULL,
     sex VARCHAR(30),
     hire_date VARCHAR(30) NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(emp_no)
 );
 
 CREATE TABLE IF NOT EXISTS salaries
 (
-    id INTEGER NOT NULL,
     emp_no INTEGER NOT NULL,
     salary INTEGER NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(emp_no)
 );
 
 CREATE TABLE IF NOT EXISTS titles
 (
-    id INTEGER NOT NULL,
     title_id VARCHAR(30) NOT NULL,
     title VARCHAR(30) NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(title_id)
 );
 
 
@@ -69,38 +62,26 @@ ALTER TABLE departments
 ;
     
 ALTER TABLE employees
-    ADD    FOREIGN KEY (last_name)
-    REFERENCES dept_manager(emp_no)
+    ADD    FOREIGN KEY (emp_title_id)
+    REFERENCES titles(title_id)
     MATCH SIMPLE
 ;
     
-ALTER TABLE employees
-    ADD    FOREIGN KEY (first_name)
-    REFERENCES dept_manager(emp_no)
-    MATCH SIMPLE
-;
-    
-ALTER TABLE departments
-    ADD    FOREIGN KEY (dept_name)
-    REFERENCES dept_emp(dept_no)
+ALTER TABLE dept_emp
+    ADD    FOREIGN KEY (emp_no)
+    REFERENCES employees(emp_no)
     MATCH SIMPLE
 ;
     
 ALTER TABLE dept_emp
     ADD    FOREIGN KEY (dept_no)
+    REFERENCES departments(dept_no)
+    MATCH SIMPLE
+;
+    
+ALTER TABLE dept_manager
+    ADD    FOREIGN KEY (emp_no)
     REFERENCES employees(emp_no)
-    MATCH SIMPLE
-;
-    
-ALTER TABLE employees
-    ADD    FOREIGN KEY (first_name)
-    REFERENCES dept_emp(emp_no)
-    MATCH SIMPLE
-;
-    
-ALTER TABLE employees
-    ADD    FOREIGN KEY (last_name)
-    REFERENCES dept_emp(emp_no)
     MATCH SIMPLE
 ;
     
