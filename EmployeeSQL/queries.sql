@@ -37,3 +37,38 @@ From employees AS e
 	dept_emp.dept_no = d.dept_no;
 	
 ---5. List first name, last name, sex for employees with first name "Hercules" last name begins with "B":
+SELECT first_name, last_name, sex
+FROM employees
+WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
+
+---6. List all employees in Sales department with employee number, last name, first name, department name:
+SELECT e.emp_no,
+	e.last_name,
+	e.first_name,
+	d.dept_name
+FROM employees AS e
+	LEFT JOIN dept_emp ON
+	e.emp_no = dept_emp.emp_no
+	INNER JOIN departments AS d ON
+	dept_emp.dept_no = d.dept_no
+	WHERE dept_name = 'Sales';
+
+---7. List all employees in Sales and Development departments, including their employee number, last name, first name, and department name:
+SELECT e.emp_no,
+	e.last_name,
+	e.first_name,
+	d.dept_name
+FROM employees AS e
+	LEFT JOIN dept_emp ON
+	e.emp_no = dept_emp.emp_no
+	INNER JOIN departments AS d ON
+	dept_emp.dept_no = d.dept_no
+	WHERE dept_name = 'Development'
+	OR dept_name = 'Sales';
+
+---8. List frequency count of employees last names in descending order:
+SELECT last_name, COUNT(last_name) "employee last name"
+FROM employees
+GROUP BY last_name
+ORDER BY "employee last name" DESC;
+	
