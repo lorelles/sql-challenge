@@ -71,4 +71,7 @@ SELECT last_name, COUNT(last_name) "employee last name"
 FROM employees
 GROUP BY last_name
 ORDER BY "employee last name" DESC;
-	
+
+---Find information for ID #499942:	
+SELECT * FROM employees
+	WHERE emp_no = 499942;
