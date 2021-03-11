@@ -1,18 +1,6 @@
 -- Create schemas
 
 -- Create tables
-CREATE TABLE IF NOT EXISTS employees
-(
-    emp_no INTEGER NOT NULL,
-    emp_title_id VARCHAR(30) NOT NULL,
-    birth_date VARCHAR(30) NOT NULL,
-    first_name VARCHAR(30),
-    last_name VARCHAR(30) NOT NULL,
-    sex VARCHAR(30),
-    hire_date VARCHAR(30) NOT NULL,
-    PRIMARY KEY(emp_no)
-);
-
 CREATE TABLE IF NOT EXISTS departments
 (
     dept_no VARCHAR(30) NOT NULL,
@@ -29,8 +17,19 @@ CREATE TABLE IF NOT EXISTS dept_emp
 CREATE TABLE IF NOT EXISTS dept_manager
 (
     dept_no VARCHAR(30) NOT NULL,
+    emp_no INTEGER NOT NULL    
+);
+
+CREATE TABLE IF NOT EXISTS employees
+(
     emp_no INTEGER NOT NULL,
-    PRIMARY KEY(dept_no)
+    emp_title_id VARCHAR(30) NOT NULL,
+    birth_date VARCHAR(30) NOT NULL,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30) NOT NULL,
+    sex VARCHAR(30),
+    hire_date VARCHAR(30) NOT NULL,
+    PRIMARY KEY(emp_no)
 );
 
 CREATE TABLE IF NOT EXISTS salaries
@@ -79,9 +78,9 @@ ALTER TABLE dept_manager
     MATCH SIMPLE
 ;
     
-ALTER TABLE dept_emp
+ALTER TABLE dept_manager
     ADD    FOREIGN KEY (dept_no)
-    REFERENCES dept_manager(dept_no)
+    REFERENCES departments(dept_no)
     MATCH SIMPLE
 ;
     
